@@ -1,0 +1,2 @@
+lsmod | grep -i cs210x
+sudo modprobe cs210x
