@@ -13,9 +13,6 @@
             (dotimes (x 16)
               (write-byte #x00 s))))
 
-(clr)
-(set 8)
-
 (defun byte-correct (byte)
   (logior (/ byte 2)
           (ash (logand 1 byte) 7)))
@@ -28,44 +25,50 @@
        (write-byte #x00 s)
        (write-byte (byte-correct (nth n bytes)) s)))))
 
-(defvar question '(#x18 #x00 #x18 #x1c #x6 #x66 #x3c #x00))
-(defvar heart '(#x00 #x18 #x3c #x7e #xff #xff #xff #x66))
-(defvar file '(#x00 #x7e #x7e #x7e #x66 #x7e #x00 #x00))
-(defvar smile '(#x3c #x42 #x99 #xa5 #x81 #xa5 #x42 #x3c))
+; question
+(display '(#x18 #x00 #x18 #x1c #x6 #x66 #x3c #x00))
+; heart
+(display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
+; file
+(display '(#x00 #x7e #x7e #x7e #x66 #x7e #x00 #x00))
+; smiley face
+(display '(#x3c #x42 #x99 #xa5 #x81 #xa5 #x42 #x3c))
+; apple
+(display '(#x34 #x7a #xff #xff #xff #x76 #x8 #x18))
+; space invader
+(display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x42))
+; eight
+(display '(#x3c #x66 #x66 #x3c #x66 #x66 #x3c #x00))
 
-(defun plot (x y)
-  (let (b)
-    (with-i2c (s addr)
-              (write-byte (* x 2) s)
-              (restart-i2c s 1)
-              (setq b (read-byte s))
-              (restart-i2c s)
-              (write-byte (* x 2) s)
-              (write-byte
-               (logxor b (ash 1 (logand (+ y 7) 7))) s))))
+; right arrow one
+(display '(#x10 #x18 #xfc #xfe #xfc #x18 #x10 #x00))
+; right arrow two
+(display '(#x08 #x0c #x7e #x7f #x7e #x0c #x08 #x00))
+; right arrow three
+(display '(#x04 #x06 #x3f #x3f #x3f #x06 #x04 #x00))
+; right arrow four
+(display '(#x02 #x03 #x1f #x1f #x1f #x03 #x02 #x00))
+; right arrow five
+(display '(#x01 #x01 #x0f #x0f #x0f #x01 #x01 #x00))
 
-(defun walk ()
-  (let ((x 3)
-        (y 3)
-        (bound (lambda (pos) (cond ((> pos 6) 6)
-                                   ((< pos 0) 0)
-                                   (t pos)))))
-    (loop
-     (clr)
-     (setq x (bound (+ x (- (random 3) 1))))
-     (setq y (bound (+ y (- (random 3) 1))))
-     (plot x y)
-     (plot x (+ 1 y))
-     (plot (+ 1 x) y)
-     (plot (+ 1 x) (+ 1 y))
-     (delay 200))))
+(defun arrow-loop ()
+  (loop 
+   (display '(#x10 #x18 #xfc #xfe #xfc #x18 #x10 #x00))
+   (delay 1000)
+   (display '(#x08 #x0c #x7e #x7f #x7e #x0c #x08 #x00))
+   (delay 1000)
+   (display '(#x04 #x06 #x3f #x3f #x3f #x06 #x04 #x00))
+   (delay 1000)
+   (display '(#x02 #x03 #x1f #x1f #x1f #x03 #x02 #x00))
+   (delay 1000)
+   (display '(#x01 #x01 #x0f #x0f #x0f #x01 #x01 #x00))
+   (delay 1000)))
 
-(defvar chess '(#xaa #x55 #xaa #x55 #xaa #x55 #xaa #x55))
-(defvar anti-chess '(#x55 #xaa #x55 #xaa #x55 #xaa #x55 #xaa ))
-
-(defun shimmer ()
-  (loop
-   (display chess)
-   (delay 500)
-   (display anti-chess)
-   (delay 500)))
+(defun heart-beat ()
+  (loop 
+   (display '(#x00 #x00 #x18 #x3c #x3c #x18 #x00 #x00))
+   (set 0)
+   (delay 100)
+   (display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
+   (set 4)
+   (delay 10000)))
