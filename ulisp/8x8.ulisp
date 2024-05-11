@@ -39,6 +39,9 @@
 (display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x42))
 ; eight
 (display '(#x3c #x66 #x66 #x3c #x66 #x66 #x3c #x00))
+; pac-man ghost
+(display '(#xdb #xff #xff #xff #xdd #x99 #x7e #x3c))
+(display '(#xdb #xff #xff #xff #xbb #x99 #x7e #x3c))
 
 ; right arrow one
 (display '(#x10 #x18 #xfc #xfe #xfc #x18 #x10 #x00))
@@ -72,3 +75,32 @@
    (display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
    (set 4)
    (delay 10000)))
+
+(defun arrow-loop2 ()
+  (loop 
+   (display '(#x33 #x66 #xcc #x99 #x99 #xcc #x66 #x33))
+   (delay 200)
+   (display '(#x66 #xcc #x99 #x33 #x33 #x99 #xcc #x66))
+   (delay 200)
+   (display '(#xcc #x99 #x33 #x66 #x66 #x33 #x99 #xcc))
+   (delay 200)
+   (display '(#x99 #x33 #x66 #xcc #xcc #x66 #x33 #x99))
+   (delay 200)))
+
+(defun bullseye-loop ()
+  (loop 
+   (display '(#x3c #x66 #xc3 #x99 #x99 #xc3 #x66 #x3c))
+   (delay 200)
+   (display '(#x66 #xc3 #x99 #x3c #x3c #x99 #xc3 #x66))
+   (delay 200)
+   (display '(#xc3 #x99 #x3c #x66 #x66 #x3c #x99 #xc3))
+   (delay 200)
+   (display '(#x99 #x3c #x66 #xc3 #xc3 #x66 #x3c #x99))
+   (delay 200)))
+
+(defun ghost-loop ()
+  (loop 
+   (display '(#xdb #xff #xff #xff #xdd #x99 #x7e #x3c))
+   (delay 1000)
+   (display '(#xdb #xff #xff #xff #xbb #x99 #x7e #x3c))
+   (delay 5000)))
