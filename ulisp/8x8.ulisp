@@ -1,5 +1,4 @@
 (defvar addr 112)
-(defvar brightness 8)
 
 (defun set (bri)
   (with-i2c (s addr)
@@ -14,12 +13,14 @@
             (dotimes (x 16)
               (write-byte #x00 s))))
 
+(clr)
+(set 8)
+
 (defun byte-correct (byte)
   (logior (/ byte 2)
           (ash (logand 1 byte) 7)))
 
 (defun display (bytes)
-  (set brightness)
   (when bytes
     (with-i2c
      (s addr)
@@ -27,21 +28,44 @@
        (write-byte #x00 s)
        (write-byte (byte-correct (nth n bytes)) s)))))
 
-(clr)
-(set brightness)
-
 (defvar question '(#x18 #x00 #x18 #x1c #x6 #x66 #x3c #x00))
 (defvar heart '(#x00 #x18 #x3c #x7e #xff #xff #xff #x66))
 (defvar file '(#x00 #x7e #x7e #x7e #x66 #x7e #x00 #x00))
 (defvar smile '(#x3c #x42 #x99 #xa5 #x81 #xa5 #x42 #x3c))
 
-(defun plt (x y)
+(defun plot (x y)
   (let (b)
     (with-i2c (s addr)
               (write-byte (* x 2) s)
               (restart-i2c s 1)
-     (setq b (read-byte s))
-     (restart-i2c s)
-     (write-byte (* x 2) s)
-     (write-byte
-      (logxor b (ash 1 (logand (+ y 7) 7))) s))))
+              (setq b (read-byte s))
+              (restart-i2c s)
+              (write-byte (* x 2) s)
+              (write-byte
+               (logxor b (ash 1 (logand (+ y 7) 7))) s))))
+
+(defun walk ()
+  (let ((x 3)
+        (y 3)
+        (bound (lambda (pos) (cond ((> pos 6) 6)
+                                   ((< pos 0) 0)
+                                   (t pos)))))
+    (loop
+     (clr)
+     (setq x (bound (+ x (- (random 3) 1))))
+     (setq y (bound (+ y (- (random 3) 1))))
+     (plot x y)
+     (plot x (+ 1 y))
+     (plot (+ 1 x) y)
+     (plot (+ 1 x) (+ 1 y))
+     (delay 200))))
+
+(defvar chess '(#xaa #x55 #xaa #x55 #xaa #x55 #xaa #x55))
+(defvar anti-chess '(#x55 #xaa #x55 #xaa #x55 #xaa #x55 #xaa ))
+
+(defun shimmer ()
+  (loop
+   (display chess)
+   (delay 500)
+   (display anti-chess)
+   (delay 500)))
