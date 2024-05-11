@@ -40,8 +40,8 @@
 ; eight
 (display '(#x3c #x66 #x66 #x3c #x66 #x66 #x3c #x00))
 ; pac-man ghost
-(display '(#xdb #xff #xff #xff #xdd #x99 #x7e #x3c))
-(display '(#xdb #xff #xff #xff #xbb #x99 #x7e #x3c))
+(display '(#xdb #xff #xff #xff #xdb #xc9 #x7e #x3c))
+(display '(#xdb #xff #xff #xff #xdb #x93 #x7e #x3c))
 
 ; right arrow one
 (display '(#x10 #x18 #xfc #xfe #xfc #x18 #x10 #x00))
@@ -100,7 +100,7 @@
 
 (defun ghost-loop ()
   (loop 
-   (display '(#xdb #xff #xff #xff #xdd #x99 #x7e #x3c))
-   (delay 1000)
-   (display '(#xdb #xff #xff #xff #xbb #x99 #x7e #x3c))
+   (display '(#xdb #xff #xff #xff #xdb #x93 #x7e #x3c))
+   (delay 500)
+   (display '(#xdb #xff #xff #xff #xdb #xc9 #x7e #x3c))
    (delay 5000)))
