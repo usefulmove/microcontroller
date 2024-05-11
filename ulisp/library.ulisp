@@ -6,11 +6,6 @@
 (defun oddp (a)
   (= 1 (mod a 2)))
 
-(defun map (f lst)
-  (cond ((null lst) '())
-        (t (cons (f (car lst))
-                 (map f (cdr lst))))))
-
 (defun filter (pred lst)
   (cond ((null lst) '())
         ((pred (car lst)) (cons (car lst)
@@ -20,6 +15,13 @@
 (defun fold-left (f acc lst)
   (cond ((null lst) acc)
         (t (fold-left f (f acc (car lst)) (cdr lst)))))
+
+(defun enumerate (lst &optional index)
+  (let ((index (if index index 0)))
+    (cond ((null lst) '())
+          (t (cons (cons index
+                         (car lst))
+                   (enumerate (cdr lst) (+ 1 index)))))))
 
 (defun blink (times &optional output)
   (let ((output (if output output :led-builtin))
