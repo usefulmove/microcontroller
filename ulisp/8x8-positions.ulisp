@@ -24,9 +24,7 @@
               (write-byte
                (logxor b (ash 1 (logand (+ y 7) 7))) s))))
 
-(defun positions ()
+(defun dots ()
   (loop
    (plot (random 8) (random 8))
-   (plot (random 8) (random 8))
-   (plot (random 8) (random 8))
-   (delay 200)))
+   (delay 68)))
