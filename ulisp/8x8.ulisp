@@ -67,15 +67,6 @@
    (display '(#x01 #x01 #x0f #x0f #x0f #x01 #x01 #x00))
    (delay 1000)))
 
-(defun heart-beat ()
-  (loop 
-   (display '(#x00 #x00 #x18 #x3c #x3c #x18 #x00 #x00))
-   (set 0)
-   (delay 100)
-   (display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
-   (set 4)
-   (delay 10000)))
-
 (defun arrow-loop2 ()
   (loop 
    (display '(#x33 #x66 #xcc #x99 #x99 #xcc #x66 #x33))
@@ -86,6 +77,15 @@
    (delay 200)
    (display '(#x99 #x33 #x66 #xcc #xcc #x66 #x33 #x99))
    (delay 200)))
+
+(defun heart-beat ()
+  (loop 
+   (display '(#x00 #x00 #x18 #x3c #x3c #x18 #x00 #x00))
+   (set 0)
+   (delay 100)
+   (display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
+   (set 4)
+   (delay 10000)))
 
 (defun bullseye-loop ()
   (loop 
@@ -104,3 +104,15 @@
    (delay 1000)
    (display '(#xd9 #xff #xff #xff #xdb #xc9 #x7e #x3c))
    (delay 5000)))
+
+(display '(#x00 #x7e #x42 #x00 #x00 #x66 #x66 #x00))
+
+(display '(#x2a #x7f #x22 #x63 #x22 #x7f #x22 #x00))
+(display '(#x00 #x2a #x7f #x22 #x63 #x22 #x7f #x22))
+(display '(#x00 #x54 #xfe #x44 #xc6 #x44 #xfe #x44))
+(display '(#x54 #xfe #x44 #xc6 #x44 #xfe #x44 #x00))
+
+(display '(#xff #x80 #xb6 #xb6 #x80 #xb6 #xb6 #x80))
+(display '(#x80 #xb6 #xb6 #x80 #xb6 #xb6 #x80 #xff))
+(display '(#x01 #x6d #x6d #x01 #x6d #x6d #x01 #xff))
+(display '(#xff #x01 #x6d #x6d #x01 #x6d #x6d #x01))
