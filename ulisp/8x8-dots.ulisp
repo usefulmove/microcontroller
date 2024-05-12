@@ -26,5 +26,6 @@
 
 (defun dots ()
   (loop
-   (plot (random 8) (random 8))
-   (delay 68)))
+   (dotimes (_ 4)
+     (plot (random 8) (random 8)))
+   (delay 309)))
