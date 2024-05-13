@@ -1,10 +1,28 @@
-(defun identity (a) a)
+(defun init-i2c ()
+  (with-i2c (stream 112)
+            (princ "I2C initialized")))
 
-(defun evenp (a)
-  (= 0 (mod a 2)))
+(defun test-led ()
+  (with-i2c (stream 112)
+            (write-byte #x00 stream)
+            (write-byte #x01 stream)))
 
-(defun oddp (a)
-  (= 1 (mod a 2)))
+(defun run-test ()
+  (init-i2c)
+  (test-led)
+  (princ "Command sent"))
+
+(defun i2c-scan ()
+  (dotimes (addr 127)
+    (with-i2c (stream addr)
+              (when stream
+                (print addr)))))
+
+(defun iota (n)
+  (if (<= n 0)
+      '()
+    (append (iota (- n 1))
+            (list (- n 1)))))
 
 (defun filter (pred lst)
   (cond ((null lst) '())
