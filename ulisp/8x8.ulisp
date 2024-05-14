@@ -25,8 +25,10 @@
        (write-byte #x00 stream)
        (write-byte (byte-correct (nth n bytes)) stream)))))
 
-; question
+; question mark
 (display '(#x18 #x00 #x18 #x1c #x6 #x66 #x3c #x00))
+; exclamation point
+(display '(#x00 #x18 #x00 #x18 #x18 #x3c #x3c #x18))
 ; heart
 (display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
 ; file

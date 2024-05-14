@@ -1,4 +1,4 @@
-(defvar cs-pin 5) ; chip select pin - enable
+(defvar cs-pin 5) ; chip select enable pin
 
 ; MAX7219 LED display driver registers
 (defvar :decode-mode-reg #x09)
@@ -41,7 +41,7 @@
 
 (defun update-display (bytes)
   "Update display to reflect byte data list."
-  (let ((bytes (reverse bytes)))
+  (let ((bytes bytes))
     (when bytes
       (mapcar
        (lambda (pair)
