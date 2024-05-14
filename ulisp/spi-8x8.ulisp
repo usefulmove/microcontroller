@@ -41,14 +41,13 @@
 
 (defun update-display (bytes)
   "Update display to reflect byte data list."
-  (let ((bytes bytes))
-    (when bytes
-      (mapcar
-       (lambda (pair)
-         (let ((addr (+ 1 (car pair)))
-               (data (cdr pair)))
-           (spi-cmd addr data)))
-       (enumerate bytes)))))
+  (when bytes
+    (mapcar
+     (lambda (pair)
+       (let ((addr (+ 1 (car pair)))
+             (data (cdr pair)))
+         (spi-cmd addr data)))
+     (enumerate bytes))))
 
 (defun enumerate (lst &optional index)
   "Return association list with index position and list value."
