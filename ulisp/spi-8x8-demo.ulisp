@@ -1,6 +1,6 @@
 (defvar cs-pin 5) ; chip select enable pin
 
-; MAX7219 LED display driver registers
+#| MAX7219 LED display driver registers |#
 (defvar :decode-mode-reg #x09)
 (defvar :intensity-reg #x0a)
 (defvar :scan-limit-reg #x0b)
@@ -62,7 +62,6 @@
 (init-display)
 
 (defun demo ()
-
   #| arrow animation |#
   (let ((frames (list
                  '(#x00 #x00 #x00 #x00 #x00 #x00 #x00 #x00)
@@ -96,9 +95,9 @@
     (update-display '(#xd9 #xff #xff #xff #xdb #xc9 #x7e #x3c))
     (delay 2000))
   (clear-display)
-  (delay 500)
+  (delay 350)
 
-  #| bullseye animation |#
+  #| water animation |#
   (dotimes (_ 16)
     (update-display '(#x3c #x66 #xc3 #x99 #x99 #xc3 #x66 #x3c))
     (delay 200)
@@ -109,22 +108,28 @@
     (update-display '(#x99 #x3c #x66 #xc3 #xc3 #x66 #x3c #x99))
     (delay 200))
   (clear-display)
-  (delay 500)
+  (delay 350)
 
   #| file icon |#
   (progn
     (update-display '(#x00 #x7e #x7e #x7e #x66 #x7e #x00 #x00))
     (delay 2000))
   (clear-display)
-  (delay 500)
+  (delay 350)
 
   #| space invader |#
   (progn
+    (update-display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x42))
+    (delay 120)
+    (update-display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x24))
+    (delay 120)
+    (update-display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x42))
+    (delay 120)
+    (update-display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x24))
+    (delay 120)
     (update-display '(#x66 #xc3 #xff #xdb #xdb #x7e #x24 #x42))
     (delay 3000))
   (clear-display)
   (delay 1200))
 
 (demo)
-                                        ; heart
-(display '(#x18 #x3c #x7e #xff #xff #xff #x66 #x00))
