@@ -1,0 +1,16 @@
+(pixels-begin)
+
+(pixels-clear)
+
+(defun cycle ()
+  (let ((brightness 8)
+        (pause 120))
+    (pixels-begin)
+    (dotimes (count 64)
+      (pixels-clear)
+      (pixels-show)
+      (pixels-set-pixel-color (mod count 4) 0 0 brightness)
+      (pixels-show)
+      (delay pause)
+      (pixels-clear)
+      (pixels-show))))
