@@ -25,7 +25,7 @@
   (spi-cmd :scan-limit-reg 7) ; display all rows
   (spi-cmd :shutdown-reg 1) ; turn on display
   (spi-cmd :display-test-reg 1) ; turn on test display
-  (delay 120)
+  (delay 60)
   (spi-cmd :display-test-reg 0) ; turn off test display
   (spi-cmd :intensity-reg 8) ; set brightness
   (clear-display))
@@ -56,13 +56,17 @@
                        (car lst))
                  (enumerate (cdr lst) (+ 1 index))))))
 
+(defun fold-left (f acc lst)
+  (cond ((null lst) acc)
+        (t (fold-left f (f acc (car lst)) (cdr lst)))))
+
 (defun blink ()
   (pinmode 2 :output)
   (digitalwrite 2 :high)
   (delay 80)
   (digitalwrite 2 :low))
 
-(defun game-of-life (matrix)
+(defun update-generation (matrix)
   (let ((cell-alive? (lambda (cell)
                        (not (= 0 cell))))
         (cell-dead 0)
@@ -102,6 +106,69 @@
           (enumerate row))))
      (enumerate matrix))))
 
+(defun display-generation (generation)
+  (update-display (mapcar #'binary-list-to-number generation)))
+
+(defun binary-list-to-number (lst)
+  (fold-left
+   (lambda (acc pair)
+     (let ((ind (car pair))
+           (bit (cdr pair)))
+       (+ acc (* bit (expt 2 ind)))))
+   0
+   (enumerate lst)))
+
+(defun game-of-life (generation)
+  (let ((next-generation))
+    (loop
+     (display-generation (reverse generation))
+     (setq next-generation (update-generation generation))
+     (if (equal generation next-generation)
+         (return)
+         (progn 
+           (setq generation next-generation))))))
+
 (spi-begin)
 
 (init-display)
+
+(game-of-life '((1 0 0 1 0 0 0 0)
+                (0 0 0 0 1 0 0 0)
+                (1 0 0 0 1 0 0 0)
+                (0 1 1 1 1 0 0 0)
+                (0 0 0 0 0 0 0 0)
+                (0 0 0 0 0 0 0 0)
+                (0 0 0 0 0 0 0 0)
+                (0 0 0 0 0 0 0 0)))
+
+(game-of-life (mapcar
+               (lambda (row)
+                 (mapcar
+                  (lambda (cell)
+                    (random 2))
+                  row))
+               '((0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0)
+                 (0 0 0 0 0 0 0 0))))
+
+(loop
+ (blink)
+ (game-of-life (mapcar
+                (lambda (row)
+                  (mapcar
+                   (lambda (cell)
+                     (random 2))
+                   row))
+                '((0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)
+                  (0 0 0 0 0 0 0 0)))))
