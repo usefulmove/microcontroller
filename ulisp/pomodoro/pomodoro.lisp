@@ -1,10 +1,6 @@
-(pixels-begin)
-
-(pixels-clear)
-
 (defun cycle ()
-  (let ((brightness 8)
-        (pause 120))
+  (let ((brightness 1)
+        (pause 180))
     (pixels-begin)
     (dotimes (count 64)
       (pixels-clear)
