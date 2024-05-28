@@ -36,7 +36,7 @@ const char LispLibrary[] PROGMEM = R"lispLibrary(
   (spi-cmd :display-test-reg 1) ; turn on test display
   (delay 60)
   (spi-cmd :display-test-reg 0) ; turn off test display
-  (spi-cmd :intensity-reg 8) ; set brightness
+  (spi-cmd :intensity-reg 2) ; set brightness
   (clear-display))
 
 (defun set-brightness (level)
