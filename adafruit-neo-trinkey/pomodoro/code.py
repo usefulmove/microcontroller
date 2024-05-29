@@ -52,6 +52,7 @@ while True:
             pixels_on(done)
 
         pixels_off()
+        time.sleep(1.0)
 
     if (touch2.value == True):
         if (duration == durations[0]):
