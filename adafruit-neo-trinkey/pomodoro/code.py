@@ -11,7 +11,7 @@ touch1 = touchio.TouchIn(board.TOUCH1)
 touch2 = touchio.TouchIn(board.TOUCH2)
 
 # pomodoro durations
-durations = [10, 20, 30, 60]
+durations = [4, 20, 30, 60]
 duration = durations[1]
 
 # neopixel colors
