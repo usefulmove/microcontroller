@@ -16,8 +16,8 @@ duration = durations[1]
 
 # neopixel colors
 active = (0, 0, 255)
-done = (0, 255, 0)
-mode = (155, 100, 0)
+done = (0, 162, 0)
+mode = (82, 21, 82)
 
 
 def pixels_off():
@@ -52,7 +52,6 @@ while True:
             pixels_on(done)
 
         pixels_off()
-        time.sleep(1.0)
 
     if (touch2.value == True):
         if (duration == durations[0]):
