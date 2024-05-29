@@ -1,5 +1,6 @@
 import board
 import neopixel
+import random
 import time
 import touchio
 
@@ -18,12 +19,15 @@ active = (0, 0, 255)
 done = (0, 255, 0)
 mode = (155, 100, 0)
 
+
 def pixels_off():
     pixels.fill((0, 0, 0))
+
 
 def pixels_on(color=(85, 85, 85), number=4):
     for i in range(number):
         pixels[i] = color
+
 
 while True:
     pixels_off()
@@ -31,19 +35,24 @@ while True:
     if (touch1.value == True):
         start_time = time.monotonic()
         step = 0
+
         while (time.monotonic() - start_time) < duration * 60:
             pixels[step % 4] = active
             time.sleep(0.120)
             pixels_off()
             step = step + 1
+
         time.sleep(0.25)
         pixels_on(done)
         time.sleep(0.1)
         pixels_off()
         time.sleep(0.1)
-        pixels_on(done)
-        time.sleep(2.0)
+
+        while (touch2.value == False):
+            pixels_on(done)
+
         pixels_off()
+        time.sleep(1.0)
 
     if (touch2.value == True):
         if (duration == durations[0]):
@@ -58,4 +67,4 @@ while True:
         else:
             duration = durations[0]
             pixels_on(mode, 1)
-        time.sleep(1.0)
+        time.sleep(0.3)
