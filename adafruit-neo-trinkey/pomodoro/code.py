@@ -4,7 +4,7 @@ import random
 import time
 import touchio
 
-pixels = neopixel.NeoPixel(board.NEOPIXEL, 4, brightness=0.03)
+pixels = neopixel.NeoPixel(board.NEOPIXEL, 4, brightness=0.08)
 
 # capacitive touch sensors
 touch1 = touchio.TouchIn(board.TOUCH1)
@@ -37,8 +37,14 @@ while True:
         step = 0
 
         while (time.monotonic() - start_time) < duration * 60:
-            pixels[step % 4] = active
-            time.sleep(0.120)
+            #pixels[step % 4] = active
+            pixels[0] = active
+            pixels[2] = active
+            time.sleep(0.350)
+            pixels_off()
+            pixels[1] = active
+            pixels[3] = active
+            time.sleep(0.350)
             pixels_off()
             step = step + 1
 
