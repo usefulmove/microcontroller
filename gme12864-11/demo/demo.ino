@@ -1,5 +1,6 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+#include <EEPROM.h>
 
 #define SCREEN_I2C_ADDR 0x3C
 #define SCREEN_WIDTH 128
@@ -12,6 +13,8 @@ Adafruit_SSD1306 display(128, 64, &Wire, OLED_RST_PIN);
 #define FRAME_WIDTH (48)
 #define FRAME_HEIGHT (48)
 #define FRAME_COUNT (sizeof(walk_frames) / sizeof(walk_frames[0]))
+
+#define EEPROM_SIZE 1
 
 const unsigned char hello [] PROGMEM = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -111,12 +114,17 @@ const byte PROGMEM walk_frames[][288] = {
   {0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,240,0,0,0,0,3,248,0,0,0,0,3,12,0,0,0,0,6,6,0,0,0,0,6,6,0,0,0,0,6,6,0,0,0,0,3,12,0,0,0,0,3,252,0,0,0,0,1,248,0,0,0,0,0,0,0,0,0,0,3,0,0,0,0,0,31,224,0,0,0,0,56,112,0,0,0,0,112,56,0,0,0,0,224,24,0,0,0,3,128,28,0,0,0,7,8,62,0,0,0,6,56,54,0,0,0,14,120,51,128,0,0,12,248,51,240,0,0,12,240,120,120,0,0,25,176,124,12,0,0,25,176,111,140,0,0,25,176,99,252,0,0,51,96,192,120,0,0,51,96,192,0,0,0,30,96,224,0,0,0,12,112,96,0,0,0,0,120,48,0,0,0,0,124,56,0,0,0,0,206,28,0,0,0,0,199,12,0,0,0,0,199,140,0,0,0,1,205,198,0,0,0,1,140,198,0,0,0,3,12,198,0,0,0,7,24,102,0,0,0,6,56,99,0,0,0,12,48,99,0,0,0,24,96,99,0,0,0,24,192,99,0,0,0,25,192,51,0,0,0,31,128,63,0,0,0,15,0,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
 };
 
-long demo_mode = 0;
+long demo_mode;
 
 void setup() {
   Serial.begin(9600);
+
+  demo_mode = EEPROM.get(0, demo_mode);
+
   Serial.print(F("demo mode = "));
   Serial.println(demo_mode);
+
+  EEPROM.put(0, (demo_mode + 1) % 3);
 
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_I2C_ADDR);
   display.clearDisplay();
