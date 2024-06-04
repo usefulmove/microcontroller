@@ -451,7 +451,7 @@ const unsigned char surrender_4 [] PROGMEM = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
 
-const unsigned char surrender_blank [] PROGMEM = {
+const unsigned char display_blank [] PROGMEM = {
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
@@ -524,7 +524,7 @@ const unsigned char* surrender_array[surrender_array_length] = {
 	surrender_2,
 	surrender_3,
 	surrender_4,
-	surrender_blank,
+	display_blank,
 };
 
 long demo_mode;
@@ -544,30 +544,30 @@ int quote_frame = 0;
 
 void loop() {
   switch (demo_mode) {
-  case 0:
-    // hello
-    display.clearDisplay();
-    display.drawBitmap(0, 0, hello, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
-    break;
-  case 1:
-    // quote
-    display.clearDisplay();
-    display.drawBitmap(0, 0, surrender_array[quote_frame], SCREEN_WIDTH, SCREEN_HEIGHT, 1);
-    quote_frame = (quote_frame + 1) % surrender_array_length;
-    delay(QUOTE_FRAME_DELAY);
-    break;
-  case 2:
-    // walk animation
-    display.clearDisplay();
-    display.drawBitmap(40, 8, walk_frames[animation_frame], ANIMATION_FRAME_WIDTH, ANIMATION_FRAME_HEIGHT, 1);
-    animation_frame = (animation_frame + 1) % ANIMATION_FRAME_COUNT;
-    delay(ANIMATION_FRAME_DELAY);
-    break;
-  default:
-    // xochi
-    display.clearDisplay();
-    display.drawBitmap(0, 0, xochi, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
-    break;
+    case 0:
+      // hello
+      display.clearDisplay();
+      display.drawBitmap(0, 0, hello, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+      break;
+    case 1:
+      // quote
+      display.clearDisplay();
+      display.drawBitmap(0, 0, surrender_array[quote_frame], SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+      quote_frame = (quote_frame + 1) % surrender_array_length;
+      delay(QUOTE_FRAME_DELAY);
+      break;
+    case 2:
+      // walk animation
+      display.clearDisplay();
+      display.drawBitmap(40, 8, walk_frames[animation_frame], ANIMATION_FRAME_WIDTH, ANIMATION_FRAME_HEIGHT, 1);
+      animation_frame = (animation_frame + 1) % ANIMATION_FRAME_COUNT;
+      delay(ANIMATION_FRAME_DELAY);
+      break;
+    default:
+      // xochi
+      display.clearDisplay();
+      display.drawBitmap(0, 0, xochi, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+      break;
   }
   display.display();
 }
