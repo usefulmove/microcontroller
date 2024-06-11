@@ -20,7 +20,7 @@ done = (0, 162, 0)
 mode = (82, 21, 82)
 
 # animation pause
-pause = 0.180
+pause = 0.142
 
 def pixels_off():
     pixels.fill((0, 0, 0))
