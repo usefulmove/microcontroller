@@ -25,14 +25,13 @@ void setup() {
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
 
-  display.println(F("  how does it feel?"));
+  display.println(F("to which i replied"));
   display.println();
+  display.println(F("\"like everything i've"));
   display.println();
-  display.println(F("Antoinette:"));
+  display.println(F("ever lost"));
   display.println();
-  display.println(F("  like everything"));
-  display.println(F("  i've ever lost come"));
-  display.println(F("  back to me."));
+  display.println(F("come back to me.\""));
 
   display.display();
 }
