@@ -1,5 +1,5 @@
 (defun cycle ()
-  (let ((brightness 1)
+  (let ((brightness 8)
         (pause 180))
     (pixels-begin)
     (dotimes (count 64)
