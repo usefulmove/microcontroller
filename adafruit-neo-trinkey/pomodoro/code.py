@@ -19,6 +19,8 @@ active = (0, 0, 255)
 done = (0, 162, 0)
 mode = (82, 21, 82)
 
+# animation pause
+pause = 0.180
 
 def pixels_off():
     pixels.fill((0, 0, 0))
@@ -37,14 +39,8 @@ while True:
         step = 0
 
         while (time.monotonic() - start_time) < duration * 60:
-            #pixels[step % 4] = active
-            pixels[0] = active
-            pixels[2] = active
-            time.sleep(0.350)
-            pixels_off()
-            pixels[1] = active
-            pixels[3] = active
-            time.sleep(0.350)
+            pixels[step % 4] = active
+            time.sleep(pause)
             pixels_off()
             step = step + 1
 
