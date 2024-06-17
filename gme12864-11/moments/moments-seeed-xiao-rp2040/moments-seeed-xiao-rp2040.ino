@@ -1,6 +1,5 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-//#include <nvs_flash.h>
 
 #define SCREEN_I2C_ADDR 0x3C
 #define SCREEN_WIDTH 128
@@ -17,6 +16,7 @@ Adafruit_SSD1306 display(128, 64, &Wire, OLED_RST_PIN);
 #define QUOTE_FRAME_DELAY 2800
 
 #define NUMBER_OF_MODES 8
+
 
 const unsigned char thumb [] PROGMEM = {
 	0xb6, 0xde, 0xef, 0xff, 0xf6, 0xc9, 0x7f, 0xff, 0xff, 0xff, 0xff, 0xc0, 0x00, 0x00, 0x00, 0x00, 
@@ -560,24 +560,7 @@ void setup() {
   display.clearDisplay();
   display.display();
 
-  ///* initialize non-volatile flash storage (NVS) */
-  //esp_err_t ret = nvs_flash_init();
-  //if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
-  //  nvs_flash_erase(); // erase the NVS partition and retry
-  //  nvs_flash_init();
-  //}
-
-  //nvs_handle_t my_handle;
-  //nvs_open("storage", NVS_READWRITE, &my_handle);
-  //nvs_get_i32(my_handle, "demo_mode", &demo_mode);
-  //demo_mode = (demo_mode + 1) % NUMBER_OF_MODES;
-  //nvs_set_i32(my_handle, "demo_mode", demo_mode);
-  //nvs_commit(my_handle);
-  //nvs_close(my_handle);
-
   Serial.begin(115200);
-  Serial.print(F("demo_mode = "));
-  Serial.println(demo_mode);
 }
 
 int animation_frame = 0;
@@ -619,7 +602,7 @@ void loop() {
       break;
   }
   display.display();
-  delay(30000);
 
   demo_mode = (demo_mode + 1) % NUMBER_OF_MODES;
+  delay(30000);
 }
