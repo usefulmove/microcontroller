@@ -11,7 +11,7 @@
 
 #define DHT_PIN 2
 #define DHT_TYPE DHT11
-#define UPDATE_RATE 2000
+#define UPDATE_RATE 1200
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
@@ -27,7 +27,6 @@ void setup() {
   }
 
   display.clearDisplay();
-  display.setTextSize(3);
   display.setTextColor(SSD1306_WHITE);
   display.display();
 }
@@ -53,10 +52,14 @@ void loop() {
 
   display.clearDisplay();
   display.setCursor(0, 0);
-  display.print(temperature);
-  display.println(F("F"));
-  display.print(humidity);
-  display.println(F("%"));
+  display.setTextSize(1);
   display.println();
+  display.setTextSize(3);
+  display.print(F(" "));
+  display.print(temperature - 4, 1);
+  display.println(F("F"));
+  display.print(F(" "));
+  display.print(humidity, 1);
+  display.println(F("%"));
   display.display();
 }
