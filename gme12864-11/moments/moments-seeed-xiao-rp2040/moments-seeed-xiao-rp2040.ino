@@ -8,15 +8,7 @@
 
 Adafruit_SSD1306 display(128, 64, &Wire, OLED_RST_PIN);
 
-#define ANIMATION_FRAME_DELAY 21
-#define ANIMATION_FRAME_WIDTH 48
-#define ANIMATION_FRAME_HEIGHT 48
-#define ANIMATION_FRAME_COUNT (sizeof(walk_frames) / sizeof(walk_frames[0]))
-
-#define QUOTE_FRAME_DELAY 2800
-
 #define NUMBER_OF_MODES 8
-
 
 const unsigned char thumb [] PROGMEM = {
 	0xb6, 0xde, 0xef, 0xff, 0xf6, 0xc9, 0x7f, 0xff, 0xff, 0xff, 0xff, 0xc0, 0x00, 0x00, 0x00, 0x00, 
@@ -563,14 +555,11 @@ void setup() {
   Serial.begin(115200);
 }
 
-int animation_frame = 0;
-int quote_frame = 0;
-
 void loop() {
   switch (demo_mode) {
     case 0:
       display.clearDisplay();
-      display.drawBitmap(0, 0, ass, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+      display.drawBitmap(0, 0, mouth, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
       break;
     case 1:
       display.clearDisplay();
@@ -582,7 +571,7 @@ void loop() {
       break;
     case 3:
       display.clearDisplay();
-      display.drawBitmap(0, 0, mouth, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
+      display.drawBitmap(0, 0, ass, SCREEN_WIDTH, SCREEN_HEIGHT, 1);
       break;
     case 4:
       display.clearDisplay();
