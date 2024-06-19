@@ -593,5 +593,6 @@ void loop() {
   display.display();
 
   demo_mode = (demo_mode + 1) % NUMBER_OF_MODES;
+
   delay(30000);
 }
