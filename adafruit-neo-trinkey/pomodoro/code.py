@@ -7,8 +7,8 @@ import touchio
 pixels = neopixel.NeoPixel(board.NEOPIXEL, 4, brightness=0.08)
 
 # capacitive touch sensors
-touch1 = touchio.TouchIn(board.TOUCH1)
-touch2 = touchio.TouchIn(board.TOUCH2)
+start_stop_sensor = touchio.TouchIn(board.TOUCH1)
+mode_sensor = touchio.TouchIn(board.TOUCH2)
 
 # pomodoro durations
 durations = [4, 20, 30, 60]
@@ -20,7 +20,8 @@ done = (0, 162, 0)
 mode = (82, 21, 82)
 
 # animation pause
-pause = 0.142
+delay = 0.142
+
 
 def pixels_off():
     pixels.fill((0, 0, 0))
@@ -34,13 +35,12 @@ def pixels_on(color=(85, 85, 85), number=4):
 while True:
     pixels_off()
 
-    if (touch1.value == True):
+    if start_stop_sensor.value:
         start_time = time.monotonic()
         step = 0
-
         while (time.monotonic() - start_time) < duration * 60:
             pixels[step % 4] = active
-            time.sleep(pause)
+            time.sleep(delay)
             pixels_off()
             step = step + 1
 
@@ -50,13 +50,13 @@ while True:
         pixels_off()
         time.sleep(0.1)
 
-        while (touch2.value == False):
+        while (mode_sensor.value == False):
             pixels_on(done)
 
         pixels_off()
         time.sleep(1.0)
 
-    if (touch2.value == True):
+    if mode_sensor.value:
         if (duration == durations[0]):
             duration = durations[1]
             pixels_on(mode, 2)
