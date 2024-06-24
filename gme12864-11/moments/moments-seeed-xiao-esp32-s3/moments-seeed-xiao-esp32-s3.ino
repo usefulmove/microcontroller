@@ -9,13 +9,6 @@
 
 Adafruit_SSD1306 display(128, 64, &Wire, OLED_RST_PIN);
 
-#define ANIMATION_FRAME_DELAY 21
-#define ANIMATION_FRAME_WIDTH 48
-#define ANIMATION_FRAME_HEIGHT 48
-#define ANIMATION_FRAME_COUNT (sizeof(walk_frames) / sizeof(walk_frames[0]))
-
-#define QUOTE_FRAME_DELAY 2800
-
 #define NUMBER_OF_MODES 8
 
 const unsigned char thumb [] PROGMEM = {
@@ -579,9 +572,6 @@ void setup() {
   Serial.print(F("demo_mode = "));
   Serial.println(demo_mode);
 }
-
-int animation_frame = 0;
-int quote_frame = 0;
 
 void loop() {
   switch (demo_mode) {
