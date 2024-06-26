@@ -15,53 +15,6 @@
 // initialize the display
 Adafruit_ST7789 display = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 
-void display_splash() {
-  display.fillScreen(cor_black);
-  delay(1200);
-  display.setTextSize(2);
-  display.setCursor(0, 0);
-  display.setTextColor(cor_cream);
-  display.println("");
-  display.println("");
-  display.println("");
-  display.println("    Poem No. 3");
-  display.setTextColor(cor_charcoal);
-  display.println("   Sonia Sanchez");
-  delay(5200);
-  display.fillScreen(cor_black);
-  delay(1200);
-}
-
-void display_poem_no_3() {
-  display.fillScreen(cor_black);
-  display.setCursor(0, 0);
-  display.setTextColor(cor_cream);
-  display.setTextSize(2);
-  display.println("  i gather up");
-  display.print("  each ");
-  display.setTextColor(cor_blue_smurf);
-  display.println("sound");
-  display.setTextColor(cor_cream);
-  display.println("  you left behind");
-  display.print("  and ");
-  display.setTextColor(cor_orange_sherbet);
-  display.print("stretch ");
-  display.setTextColor(cor_cream);
-  display.println("them");
-  display.println("  on our bed.");
-  display.println("         each nite");
-  display.print("  i ");
-  display.setTextColor(cor_blue_coffee);
-  display.print("breathe ");
-  display.setTextColor(cor_cream);
-  display.println(" you");
-  display.print("  and become ");
-  display.setTextColor(cor_yellow_canary);
-  display.print("high");
-  display.setTextColor(cor_cream);
-  display.println(".");
-}
-
 void setup() {
   Serial.begin(115200);
 
@@ -77,15 +30,52 @@ void setup() {
   display.setRotation(3);
 }
 
-void loop() {
+void display_image(const uint16_t* image) {
   display.fillScreen(cor_black);
   delay(1200);
-  display.drawRGBBitmap(0, 0, stacy, 240, 135);
+  display.drawRGBBitmap(0, 0, image, 240, 135);
+}
 
+void hold_for_button_press() {
   while (digitalRead(BOOT_BUTTON) == HIGH) {}
+}
 
-  display_splash();
-  display_poem_no_3();
+void loop() {
+  display_image(stacy);
+  hold_for_button_press();
 
-  while (digitalRead(BOOT_BUTTON) == HIGH) {}
+  display_image(amada);
+  hold_for_button_press();
+
+  display_image(bobby);
+  hold_for_button_press();
+
+  display_image(xochi);
+  hold_for_button_press();
+
+  display_image(steve);
+  hold_for_button_press();
+
+  display_image(thavy);
+  hold_for_button_press();
+
+  display_image(ali);
+  hold_for_button_press();
+
+  display_image(plum);
+  hold_for_button_press();
+
+  display_image(splash);
+  delay(3800);
+  display_image(no_parts);
+  hold_for_button_press();
+
+  display_image(thumb);
+  hold_for_button_press();
+
+  display_image(behind);
+  hold_for_button_press();
+
+  display_image(tub);
+  hold_for_button_press();
 }
