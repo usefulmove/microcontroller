@@ -44,5 +44,5 @@ void loop() {
   x = constrain(x, 0, 6);
   y = constrain(y, 0, 6);
 
-  delay(350);
+  delay(120);
 }
