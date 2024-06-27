@@ -67,6 +67,12 @@ void loop() {
   display_image(ali);
   hold_for_button_press();
 
+  display_image(alone_together);
+  hold_for_button_press();
+
+  display_image(water);
+  hold_for_button_press();
+
   display_image(plum);
   hold_for_button_press();
 
