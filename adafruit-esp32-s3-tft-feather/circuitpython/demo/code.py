@@ -13,7 +13,7 @@ message = "\"You are so brave and so quiet\n I forget you are suffering.\""
 message_area = label.Label(terminalio.FONT, text=message, color=0xF9E4BC, x=30, y=45)
 splash.append(message_area)
 
-update_area = label.Label(terminalio.FONT, text="", color=0x0080FF, x=57, y=85)
+update_area = label.Label(terminalio.FONT, text="", color=0x0080FF, x=55, y=85)
 splash.append(update_area)
 
 count = 0
