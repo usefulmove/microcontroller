@@ -52,7 +52,7 @@ author_font = bitmap_font.load_font(author_font_path)
 splash_label = label.Label(splash_font, text="", color=splash_font_color, x=24, y=60)
 reader_label = label.Label(reader_font, text="", color=reader_font_color, x=24, y=58)
 author_label = label.Label(author_font, text="", color=author_font_color, x=24, y=58)
-version_label = label.Label(terminalio.FONT, text=version, color=version_font_color, x=200, y=120)
+version_label = label.Label(terminalio.FONT, text=version, color=version_font_color, x=201, y=122)
 
 cache_splash_label = label.Label(splash_font, text="", color=0x000000, x=24, y=60)
 cache_reader_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
