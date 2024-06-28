@@ -32,6 +32,11 @@ while True:
     time.sleep(1)
     for word in words:
         reader_area.text = word
+
+        last_char = word[-1]
+        if (last_char == ".") or (last_char == "?") or (last_char == "!"):
+            time.sleep(0.5)
+
         time.sleep(60 / wpm)
 
     time.sleep(1)
