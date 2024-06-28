@@ -35,13 +35,13 @@ reader_font = bitmap_font.load_font("/fonts/SourceCodePro-Regular-18.bdf")
 author_font = bitmap_font.load_font("/fonts/Comforta-Regular-20.bdf")
 
 # configure labels
-#splash_label = label.Label(splash_font, text="", color=0x202020, x=24, y=60)
 splash_label = label.Label(splash_font, text="", color=0xffffff, x=24, y=60)
-dummy_splash_label = label.Label(splash_font, text="", color=0x000000, x=24, y=60)
 reader_label = label.Label(reader_font, text="", color=0xf9e4bc, x=24, y=58)
-dummy_reader_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
 author_label = label.Label(author_font, text="", color=0xef9d6e, x=24, y=58)
-dummy_author_label = label.Label(author_font, text="", color=0x000000, x=24, y=58)
+
+cache_splash_label = label.Label(splash_font, text="", color=0x000000, x=24, y=60)
+cache_reader_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
+cache_author_label = label.Label(author_font, text="", color=0x000000, x=24, y=58)
 
 display.append(splash_label)
 display.append(reader_label)
@@ -58,14 +58,14 @@ def clear_display(delay=0):
     author_label.text = ""
     time.sleep(delay)
 
-def display_typed_text(label, text):
+def display_typed_text(label, text, delay=0.05):
     for i in range(len(text) + 1):
         label.text = text[:i] + "|"
-        time.sleep(0.05)
+        time.sleep(delay)
     label.text = text
 
 while True:
-    display_typed_text(dummy_splash_label, splash)
+    display_typed_text(cache_splash_label, splash, 0)
     display_typed_text(splash_label, splash)
 
     # wait for button press
@@ -75,12 +75,11 @@ while True:
     # clear display
     clear_display()
 
-    # cache word bitmaps for speed of rendering
-    for word in message.split():
-        dummy_reader_label.text = word.lower()
+    # display words
+    for word in message.split(): # cache word bitmaps for speed of rendering
+        cache_reader_label.text = word.lower()
     clear_display()
 
-    # display words
     for word in message.split():
         reader_label.text = word.lower()
 
@@ -93,12 +92,12 @@ while True:
     time.sleep(0.8)
 
     # clear display
-    clear_display(2)
+    clear_display(1)
 
     # display author with typewriter effect
-    display_typed_text(dummy_author_label, author)
+    display_typed_text(cache_author_label, author, 0)
     display_typed_text(author_label, author)
-    time.sleep(2.5)
+    time.sleep(4)
 
     # clear display
     clear_display(1)
