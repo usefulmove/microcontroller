@@ -7,7 +7,7 @@ from adafruit_bitmap_font import bitmap_font
 from adafruit_display_text import label
 
 splash = "popcorn"
-version = "0.0.2"
+version = "0.0.3"
 
 # reading parameters
 words_per_minute = 280
@@ -15,6 +15,10 @@ sentence_pause = 1.2
 comma_pause = 0.4
 
 word_pause = 60 / words_per_minute
+
+# screen dimensions
+screen_height = 135
+screen_width = 240
 
 # font colors
 splash_font_color = 0xf9e4bc
@@ -49,14 +53,56 @@ reader_font = bitmap_font.load_font(reader_font_path)
 author_font = bitmap_font.load_font(author_font_path)
 
 # configure labels
-splash_label = label.Label(splash_font, text="", color=splash_font_color, x=24, y=60)
-reader_label = label.Label(reader_font, text="", color=reader_font_color, x=24, y=58)
-author_label = label.Label(author_font, text="", color=author_font_color, x=24, y=58)
-version_label = label.Label(terminalio.FONT, text=version, color=version_font_color, x=201, y=122)
+splash_label = label.Label(
+    splash_font,
+    text="",
+    color=splash_font_color,
+    anchor_point=(0.0, 0.5),
+    anchored_position=(24, screen_height//2),
+)
+reader_label = label.Label(
+    reader_font,
+    text="",
+    color=reader_font_color,
+    anchor_point=(0.5, 0.5),
+    anchored_position=(screen_width//2, screen_height//2),
+)
+author_label = label.Label(
+    author_font,
+    text="",
+    color=author_font_color,
+    anchor_point=(0.0, 0.5),
+    anchored_position=(24, screen_height//2),
+)
+version_label = label.Label(
+    terminalio.FONT,
+    text=version,
+    color=version_font_color,
+    anchor_point=(1.0, 1.0),
+    anchored_position=(screen_width-8, screen_height-8),
+)
 
-cache_splash_label = label.Label(splash_font, text="", color=0x000000, x=24, y=60)
-cache_reader_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
-cache_author_label = label.Label(author_font, text="", color=0x000000, x=24, y=58)
+cache_splash_label = label.Label(
+    splash_font,
+    text="",
+    color=0x000000,
+    anchor_point=(0.0, 0.5),
+    anchored_position=(24, screen_height//2),
+)
+cache_reader_label = label.Label(
+    reader_font,
+    text="",
+    color=0x000000,
+    anchor_point=(0.5, 0.5),
+    anchored_position=(screen_width//2, screen_height//2)
+)
+cache_author_label = label.Label(
+    author_font,
+    text="",
+    color=0x000000,
+    anchor_point=(0.0, 0.5),
+    anchored_position=(24, screen_height//2),
+)
 
 display.append(splash_label)
 display.append(reader_label)
