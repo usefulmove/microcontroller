@@ -23,19 +23,20 @@ author = "Osho"
 #message = "\"You think your pain and your heartbreak are un- precedented in the history of the world, but then you read. It was books that taught me that the things that tormented me most were the very things that connected me with all the people who were alive, who had ever been alive.\""
 #author = "J. Baldwin"
 
-prompt = ". . ."
+splash = "popcorn"
 
 # set up display
 display = displayio.Group()
 board.DISPLAY.root_group = display
 
 # load fonts
-splash_font = bitmap_font.load_font("/fonts/Comforta-Regular-16.bdf")
+splash_font = bitmap_font.load_font("/fonts/Comforta-Regular-20.bdf")
 reader_font = bitmap_font.load_font("/fonts/SourceCodePro-Regular-18.bdf")
 author_font = bitmap_font.load_font("/fonts/Comforta-Regular-20.bdf")
 
 # configure labels
-splash_label = label.Label(splash_font, text="", color=0x202020, x=24, y=60)
+#splash_label = label.Label(splash_font, text="", color=0x202020, x=24, y=60)
+splash_label = label.Label(splash_font, text="", color=0xffffff, x=24, y=60)
 reader_label = label.Label(reader_font, text="", color=0xf9e4bc, x=24, y=58)
 dummy_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
 author_label = label.Label(author_font, text="", color=0xef9d6e, x=24, y=58)
@@ -44,16 +45,22 @@ display.append(splash_label)
 display.append(reader_label)
 display.append(author_label)
 
+# configure boot button
+boot_button = digitalio.DigitalInOut(board.BOOT0)
+boot_button.direction = digitalio.Direction.INPUT
+boot_button.pull = digitalio.Pull.UP
+
 def clear_display(delay=0):
     splash_label.text = ""
     reader_label.text = ""
     author_label.text = ""
     time.sleep(delay)
 
-# configure boot button
-boot_button = digitalio.DigitalInOut(board.BOOT0)
-boot_button.direction = digitalio.Direction.INPUT
-boot_button.pull = digitalio.Pull.UP
+def display_typed_text(label, text):
+    for i in range(len(text) + 1):
+        label.text = text[:i] + "|"
+        time.sleep(0.05)
+    label.text = text
 
 # cache word bitmaps for speed of rendering
 for word in message.split():
@@ -61,7 +68,7 @@ for word in message.split():
 clear_display()
 
 while True:
-    splash_label.text = prompt
+    display_typed_text(splash_label, splash)
 
     # wait for button press
     while boot_button.value:
@@ -80,14 +87,14 @@ while True:
             time.sleep(comma_pause)
 
         time.sleep(word_pause)
-    time.sleep(1)
+    time.sleep(0.8)
 
     # clear display
     clear_display(2)
 
-    # display author
-    author_label.text = author
-    time.sleep(3)
+    # display author with typewriter effect
+    display_typed_text(author_label, author)
+    time.sleep(2.5)
 
     # clear display
-    clear_display()
+    clear_display(1)
