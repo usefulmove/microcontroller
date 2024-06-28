@@ -37,9 +37,11 @@ author_font = bitmap_font.load_font("/fonts/Comforta-Regular-20.bdf")
 # configure labels
 #splash_label = label.Label(splash_font, text="", color=0x202020, x=24, y=60)
 splash_label = label.Label(splash_font, text="", color=0xffffff, x=24, y=60)
+dummy_splash_label = label.Label(splash_font, text="", color=0x000000, x=24, y=60)
 reader_label = label.Label(reader_font, text="", color=0xf9e4bc, x=24, y=58)
-dummy_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
+dummy_reader_label = label.Label(reader_font, text="", color=0x000000, x=24, y=58)
 author_label = label.Label(author_font, text="", color=0xef9d6e, x=24, y=58)
+dummy_author_label = label.Label(author_font, text="", color=0x000000, x=24, y=58)
 
 display.append(splash_label)
 display.append(reader_label)
@@ -62,12 +64,8 @@ def display_typed_text(label, text):
         time.sleep(0.05)
     label.text = text
 
-# cache word bitmaps for speed of rendering
-for word in message.split():
-    dummy_label.text = word.lower()
-clear_display()
-
 while True:
+    display_typed_text(dummy_splash_label, splash)
     display_typed_text(splash_label, splash)
 
     # wait for button press
@@ -75,7 +73,12 @@ while True:
         pass
 
     # clear display
-    clear_display(2)
+    clear_display()
+
+    # cache word bitmaps for speed of rendering
+    for word in message.split():
+        dummy_reader_label.text = word.lower()
+    clear_display()
 
     # display words
     for word in message.split():
@@ -93,6 +96,7 @@ while True:
     clear_display(2)
 
     # display author with typewriter effect
+    display_typed_text(dummy_author_label, author)
     display_typed_text(author_label, author)
     time.sleep(2.5)
 
