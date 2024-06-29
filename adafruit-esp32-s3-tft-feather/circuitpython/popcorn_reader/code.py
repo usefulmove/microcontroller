@@ -10,9 +10,9 @@ splash = "popcorn"
 version = "0.0.3"
 
 # reading parameters
-words_per_minute = 280
-sentence_pause = 1.2
-comma_pause = 0.4
+words_per_minute = 260
+sentence_modifier = 4.8
+comma_modifier = 2.0
 long_word_modifier = 1.5
 
 word_pause = 60 / words_per_minute
@@ -152,24 +152,22 @@ while True:
     words = messages[message_index].split()
 
     for word in words: # cache bitmaps
-        cache_reader_label.text = word.lower()
+        cache_reader_label.text = word
     clear_display()
 
     for word in words:
-        reader_label.text = word.lower()
+        reader_label.text = word
 
         if word[-1] in {".", "?", "!", "\"", ";", "—", "–"}:
-            time.sleep(sentence_pause)
+            time.sleep(word_pause * sentence_modifier)
         elif word[-1] in {",", ":"}:
-            time.sleep(comma_pause)
+            time.sleep(word_pause * comma_modifier)
         elif len(word) > 8:
             time.sleep(word_pause * long_word_modifier)
         else:
             time.sleep(word_pause)
 
-    time.sleep(0.8)
-
-    clear_display(1)
+    clear_display(0.3)
 
     # display author
     display_typed_text(
