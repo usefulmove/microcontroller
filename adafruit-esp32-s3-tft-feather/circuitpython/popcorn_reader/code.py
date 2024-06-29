@@ -10,9 +10,10 @@ splash = "popcorn"
 version = "0.0.3"
 
 # reading parameters
-words_per_minute = 260
+words_per_minute = 280
 sentence_pause = 1.2
 comma_pause = 0.4
+long_word_modifier = 1.5
 
 word_pause = 60 / words_per_minute
 
@@ -29,7 +30,7 @@ version_font_color = 0x282828
 # font paths
 splash_font_path = "/fonts/Comforta-Regular-20.bdf"
 reader_font_path = "/fonts/SourceCodePro-Regular-18.bdf"
-author_font_path = "/fonts/Comforta-Regular-20.bdf"
+author_font_path = "/fonts/Comforta-Regular-16.bdf"
 
 # message to display
 messages = []
@@ -39,10 +40,10 @@ messages.append("\"The capacity to be alone is the capacity to love. It may look
 authors.append("Osho")
 
 messages.append("\"Physical concepts are free creations of the human mind, and are not, however it may seem, uniquely determined by the external world. In our endeavor to understand reality we are somewhat like a man trying to understand the mechanism of a closed watch. He sees the face and the moving hands, even hears its ticking, but he has no way of opening the case. If he is ingenious, he may form some picture of a mechanism which could be responsible for all the things he observes, but he may never be quite sure his picture is the only one which could explain his observations. He will never be able to compare his picture with the real mechanism and he cannot even imagine the possibility or the meaning of such a comparison.\"")
-authors.append("A. Einstein")
+authors.append("Albert Einstein")
 
 messages.append("\"You think your pain and your heartbreak are un- precedented in the history of the world, but then you read. It was books that taught me that the things that tormented me most were the very things that connected me with all the people who were alive, who had ever been alive.\"")
-authors.append("J. Baldwin")
+authors.append("James Baldwin")
 
 # set up display
 display = displayio.Group()
@@ -59,7 +60,7 @@ splash_label = label.Label(
     text="",
     color=splash_font_color,
     anchor_point=(0.0, 0.5),
-    anchored_position=(24, screen_height//2),
+    anchored_position=(screen_width//10, screen_height//2),
 )
 reader_label = label.Label(
     reader_font,
@@ -73,7 +74,7 @@ author_label = label.Label(
     text="",
     color=author_font_color,
     anchor_point=(0.0, 0.5),
-    anchored_position=(24, screen_height//2),
+    anchored_position=(screen_width//10, screen_height//2),
 )
 version_label = label.Label(
     terminalio.FONT,
@@ -88,7 +89,7 @@ cache_splash_label = label.Label(
     text="",
     color=0x000000,
     anchor_point=(0.0, 0.5),
-    anchored_position=(24, screen_height//2),
+    anchored_position=(screen_width//10, screen_height//2),
 )
 cache_reader_label = label.Label(
     reader_font,
@@ -102,7 +103,7 @@ cache_author_label = label.Label(
     text="",
     color=0x000000,
     anchor_point=(0.0, 0.5),
-    anchored_position=(24, screen_height//2),
+    anchored_position=(screen_width//10, screen_height//2),
 )
 
 display.append(splash_label)
@@ -161,8 +162,11 @@ while True:
             time.sleep(sentence_pause)
         elif word[-1] in {",", ":"}:
             time.sleep(comma_pause)
+        elif len(word) > 8:
+            time.sleep(word_pause * long_word_modifier)
+        else:
+            time.sleep(word_pause)
 
-        time.sleep(word_pause)
     time.sleep(0.8)
 
     clear_display(1)
