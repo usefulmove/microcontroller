@@ -12,7 +12,7 @@ version = "0.0.3"
 # reading parameters
 words_per_minute = 260
 sentence_modifier = 4.8
-comma_modifier = 2.0
+comma_modifier = 2.2
 long_word_modifier = 1.5
 
 word_pause = 60 / words_per_minute
@@ -28,13 +28,16 @@ author_font_color = 0xef9d6e
 version_font_color = 0x282828
 
 # font paths
-splash_font_path = "/fonts/Comforta-Regular-20.bdf"
+splash_font_path = "/fonts/Comfortaa-Regular-20.bdf"
 reader_font_path = "/fonts/SourceCodePro-Regular-18.bdf"
-author_font_path = "/fonts/Comforta-Regular-16.bdf"
+author_font_path = "/fonts/Comfortaa-Regular-16.bdf"
 
 # message to display
 messages = []
 authors = []
+
+messages.append("\"It is not the critic who counts; not the man who points out how the strong man stumbles, or where the doer of deeds could have done them better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again, because there is no effort without error and shortcoming; but who does actually strive to do the deeds; who knows great enthusiasms, the great devotions; who spends himself in a worthy cause; who at the best knows in the end the triumph of high achievement, and who at the worst, if he fails, at least fails while daring greatly, so that his place shall never be with those cold and timid souls who neither know victory nor defeat.\"")
+authors.append("Theodore\nRoosevelt Jr.")
 
 messages.append("\"The capacity to be alone is the capacity to love. It may look paradoxical to you, but it's not. It is an existential truth: only those people who are capable of being alone are capable of love, of sharing, of going into the deepest core of another person without possessing the other, without becoming dependent on the other, without reducing the other to a thing, and without becoming addicted to the other. They allow the other absolute freedom, because they know that if the other leaves, they will be as happy as they are now. Their happiness cannot be taken by the other, because it is not given by the other.\"")
 authors.append("Osho")
@@ -75,6 +78,7 @@ author_label = label.Label(
     color=author_font_color,
     anchor_point=(0.0, 0.5),
     anchored_position=(screen_width//10, screen_height//2),
+    line_spacing=1.0,
 )
 version_label = label.Label(
     terminalio.FONT,
@@ -104,6 +108,7 @@ cache_author_label = label.Label(
     color=0x000000,
     anchor_point=(0.0, 0.5),
     anchored_position=(screen_width//10, screen_height//2),
+    line_spacing=1.0,
 )
 
 display.append(splash_label)
@@ -146,7 +151,7 @@ while True:
     while boot_button.value:
         pass
 
-    clear_display(2)
+    clear_display(1)
     
     # display words
     words = messages[message_index].split()
@@ -158,9 +163,9 @@ while True:
     for word in words:
         reader_label.text = word
 
-        if word[-1] in {".", "?", "!", "\"", ";", "—", "–"}:
+        if word[-1] in {".", "?", "!", "\""}:
             time.sleep(word_pause * sentence_modifier)
-        elif word[-1] in {",", ":"}:
+        elif word[-1] in {",", ":", ";"}:
             time.sleep(word_pause * comma_modifier)
         elif len(word) > 8:
             time.sleep(word_pause * long_word_modifier)
