@@ -10,9 +10,9 @@ splash = "popcorn"
 version = "0.0.3"
 
 # reading parameters
-words_per_minute = 260
+words_per_minute = 280
 sentence_modifier = 4.8
-comma_modifier = 2.2
+comma_modifier = 2.1
 long_word_modifier = 1.5
 
 word_pause = 60 / words_per_minute
@@ -35,6 +35,9 @@ author_font_path = "/fonts/Comfortaa-Regular-16.bdf"
 # message to display
 messages = []
 authors = []
+
+messages.append("\"Let me tell you something. This here, right now, at this very moment, is all that matters to me. I love you. And that's urgent like a motherfucker.\"")
+authors.append("Darius Lovehall")
 
 messages.append("\"It is not the critic who counts; not the man who points out how the strong man stumbles, or where the doer of deeds could have done them better. The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood; who strives valiantly; who errs, who comes short again and again, because there is no effort without error and shortcoming; but who does actually strive to do the deeds; who knows great enthusiasms, the great devotions; who spends himself in a worthy cause; who at the best knows in the end the triumph of high achievement, and who at the worst, if he fails, at least fails while daring greatly, so that his place shall never be with those cold and timid souls who neither know victory nor defeat.\"")
 authors.append("Theodore\nRoosevelt Jr.")
@@ -70,14 +73,14 @@ reader_label = label.Label(
     text="",
     color=reader_font_color,
     anchor_point=(0.5, 0.5),
-    anchored_position=(screen_width//2, screen_height//2),
+    anchored_position=(screen_width//2, screen_height//2-4),
 )
 author_label = label.Label(
     author_font,
     text="",
     color=author_font_color,
     anchor_point=(0.0, 0.5),
-    anchored_position=(screen_width//10, screen_height//2),
+    anchored_position=(screen_width//10, screen_height//2-4),
     line_spacing=1.0,
 )
 version_label = label.Label(
@@ -100,14 +103,14 @@ cache_reader_label = label.Label(
     text="",
     color=0x000000,
     anchor_point=(0.5, 0.5),
-    anchored_position=(screen_width//2, screen_height//2),
+    anchored_position=(screen_width//2, screen_height//2-4),
 )
 cache_author_label = label.Label(
     author_font,
     text="",
     color=0x000000,
     anchor_point=(0.0, 0.5),
-    anchored_position=(screen_width//10, screen_height//2),
+    anchored_position=(screen_width//10, screen_height//2-4),
     line_spacing=1.0,
 )
 
@@ -151,7 +154,7 @@ while True:
     while boot_button.value:
         pass
 
-    clear_display(1)
+    clear_display(0.8)
     
     # display words
     words = messages[message_index].split()
