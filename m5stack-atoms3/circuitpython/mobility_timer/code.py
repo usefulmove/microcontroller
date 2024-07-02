@@ -22,8 +22,9 @@ countdown_font_path = "/fonts/Comfortaa-Regular-60.bdf"
 rest_font_path = "/fonts/Comfortaa-Regular-20.bdf"
 
 # set up display
-display = displayio.Group()
-board.DISPLAY.root_group = display
+splash = displayio.Group()
+board.DISPLAY.rotation = 180
+board.DISPLAY.root_group = splash
 
 # load fonts
 countdown_font = bitmap_font.load_font(countdown_font_path)
@@ -45,10 +46,10 @@ rest_label = label.Label(
     anchored_position=(screen_width//2, screen_height//2),
 )
 
-display.append(countdown_label)
-display.append(rest_label)
+splash.append(countdown_label)
+splash.append(rest_label)
 
-def clear_display(delay=0):
+def clear_splash(delay=0):
     countdown_label.text = ""
     rest_label.text = ""
     time.sleep(delay)
@@ -56,14 +57,16 @@ def clear_display(delay=0):
 time.sleep(3)
 
 while True:
-    clear_display(1)
+    clear_splash(1)
 
-    for count in list(range(base_time+1))[::-1]:
-        countdown_label.text = str(count)
-        time.sleep(1.5)
-
-    clear_display(1)
-
+    # rest countdown
     for count in list(range(rest_time+1))[::-1]:
         rest_label.text = str(count)
-        time.sleep(1.5)
+        time.sleep(2)
+
+    clear_splash(1)
+
+    # stretch countdown
+    for count in list(range(base_time+1))[::-1]:
+        countdown_label.text = str(count)
+        time.sleep(2)
