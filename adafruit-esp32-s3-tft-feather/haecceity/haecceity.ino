@@ -41,12 +41,12 @@ void hold_for_button_press() {
 }
 
 void loop() {
+  display_image(franklin);
+  hold_for_button_press();
+
   display_image(splash);
   delay(3800);
   display_image(no_parts);
-  hold_for_button_press();
-
-  display_image(stacy);
   hold_for_button_press();
 
   display_image(amada);
